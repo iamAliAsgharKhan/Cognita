@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = document.getElementById('submit-button');
     const typingIndicator = document.getElementById('typing-indicator');
     
+    // Sidebar Elements
+    const historySidebar = document.getElementById('history-sidebar');
+    const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
+
     // Settings Modal Elements
     const openSettingsBtn = document.getElementById('openSettingsBtn');
     const closeSettingsBtn = document.getElementById('closeSettingsBtn');
@@ -100,6 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 4. Event Listeners ---
+    // Sidebar Toggle
+    toggleHistoryBtn.addEventListener('click', () => {
+        historySidebar.classList.toggle('collapsed');
+        // Save the state to localStorage
+        const isCollapsed = historySidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+    });
+
     const showSettingsModal = () => {
         settingsModalBackdrop.style.display = 'flex';
         setTimeout(() => settingsModalBackdrop.classList.add('visible'), 10);
@@ -201,6 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initial Application Load ---
     const initializeApp = async () => {
+        // Restore sidebar state from localStorage. The default is collapsed in the HTML.
+        // This will only expand it if the user explicitly left it open in a previous session.
+        const sidebarState = localStorage.getItem('sidebarState');
+        if (sidebarState === 'expanded') {
+            historySidebar.classList.remove('collapsed');
+        }
+
         addMessage("Hello! I'm Cognita, ready to answer questions about your Obsidian notes. What would you like to know?", 'bot');
         await fetchModels();
         await fetchDirectory();

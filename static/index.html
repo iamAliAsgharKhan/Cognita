@@ -11,39 +11,59 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <!-- Marked.js for Markdown Rendering -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Our Custom JS (defer ensures it runs after the HTML is parsed) -->
-    <script src="static/js/script.js" defer></script>
+    <!-- Our Custom JS -->
+    <script src="/static/js/script.js" defer></script>
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <h1>Cognita</h1>
-            <button id="openSettingsBtn" class="settings-toggle-btn" title="Open Settings">
-                <i class="fa-solid fa-cog"></i>
-            </button>
-        </header>
-
-        <main id="chat-window" class="chat-window">
-            <!-- Chat messages will be dynamically inserted here -->
-        </main>
-
-        <footer class="chat-input-area">
-            <div id="typing-indicator" class="typing-indicator" style="display: none;">
-                <span></span><span></span><span></span>
+    <div class="page-wrapper">
+        <!-- Collapsible Sidebar for Chat History -->
+        <aside id="history-sidebar" class="history-sidebar collapsed">
+            <div class="sidebar-header">
+                <h3>Chat History</h3>
             </div>
-            <form id="chat-form" class="chat-form">
-                <input type="text" id="query" name="query" required placeholder="Ask a question about your notes...">
-                <button type="submit" id="submit-button">
-                    <i class="fa-solid fa-paper-plane"></i>
+            <div class="coming-soon-container">
+                <p>Coming Soon!</p>
+            </div>
+        </aside>
+
+        <div class="app-container">
+            <header class="app-header">
+                <div class="header-left">
+                    <button id="toggleHistoryBtn" class="icon-btn" title="Toggle History">
+                        <i class="fa-solid fa-history"></i>
+                    </button>
+                    <div class="logo-title">
+                        <img src="/static/images/logo.png" alt="Cognita Logo" class="logo">
+                        <h1>Cognita</h1>
+                    </div>
+                </div>
+                <button id="openSettingsBtn" class="icon-btn" title="Open Settings">
+                    <i class="fa-solid fa-cog"></i>
                 </button>
-            </form>
-        </footer>
+            </header>
+
+            <main id="chat-window" class="chat-window">
+                <!-- Chat messages will be dynamically inserted here -->
+            </main>
+
+            <footer class="chat-input-area">
+                <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                    <span></span><span></span><span></span>
+                </div>
+                <form id="chat-form" class="chat-form">
+                    <input type="text" id="query" name="query" required placeholder="Ask a question about your notes...">
+                    <button type="submit" id="submit-button">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </footer>
+        </div>
     </div>
 
-    <!-- NEW: Settings Modal -->
+    <!-- Settings Modal -->
     <div id="settings-modal-backdrop" class="modal-backdrop" style="display: none;">
         <div class="modal-content">
             <header class="modal-header">

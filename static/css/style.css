@@ -21,28 +21,70 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-family);
+    height: 100vh;
+    overflow: hidden; /* Prevent body scrollbars */
+}
+
+.page-wrapper {
+    display: flex;
+    height: 100%;
+}
+
+/* --- HISTORY SIDEBAR STYLES --- */
+.history-sidebar {
+    width: 260px;
+    background-color: var(--surface-darker);
+    border-right: 1px solid #3a3a3c;
+    flex-shrink: 0;
+    transition: margin-left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-sidebar.collapsed {
+    margin-left: -260px;
+}
+
+.sidebar-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #3a3a3c;
+    flex-shrink: 0;
+}
+
+.sidebar-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.coming-soon-container {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     padding: 1rem;
 }
 
+.coming-soon-container p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-style: italic;
+}
+/* --- END SIDEBAR STYLES --- */
+
+
 .app-container {
-    width: 100%;
-    max-width: 800px;
-    height: 95vh;
-    background-color: var(--surface-darker);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    flex-grow: 1;
+    height: 100vh;
+    background-color: #1e1e21; /* Slightly different background for main chat area */
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-width: 0;
 }
 
 .app-header {
     background-color: var(--surface-color);
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     border-bottom: 1px solid #3a3a3c;
     display: flex;
     justify-content: space-between;
@@ -50,11 +92,31 @@ body {
     flex-shrink: 0;
 }
 
-.app-header h1 {
-    font-size: 1.25rem;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.settings-toggle-btn {
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    padding: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #3a3a3e 0%, rgba(255,255,255,0) 70%);
+}
+
+.app-header h1 {
+    font-size: 1.5rem;
+}
+
+.icon-btn {
     background: none;
     border: none;
     color: var(--text-muted);
@@ -62,15 +124,15 @@ body {
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s, color 0.2s;
 }
 
-.settings-toggle-btn:hover {
+.icon-btn:hover {
     background-color: var(--surface-darker);
     color: var(--text-color);
 }

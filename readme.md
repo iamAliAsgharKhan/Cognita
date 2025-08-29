@@ -1,10 +1,13 @@
 # Cognita
 
+<p align="center">
+  <img src="./images/logo.png" alt="Cognita Logo" width="400">
+</p>
 A sophisticated, conversational AI web application that allows you to chat with your local Obsidian notes. It uses Retrieval-Augmented Generation (RAG) to provide contextually-aware answers, backed by a persistent vector database and powered by the high-speed Groq LLM API.
 
 The application features a modern chat interface, dynamic configuration for both the source of your notes and the AI embedding model, and even provides source citations for its answers.
 
-![Cognita Logo](./images/logo.png)![New Application Screenshot](./images/screenshot1.png)
+![New Application Screenshot](./images/screenshot1.png)
 
 ---
 

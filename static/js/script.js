@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initial Application Load ---
     const initializeApp = async () => {
-        addMessage("Hello! I'm ready to answer questions about your Obsidian notes. What would you like to know?", 'bot');
+        addMessage("Hello! I'm Cognita, ready to answer questions about your Obsidian notes. What would you like to know?", 'bot');
         await fetchModels();
         await fetchDirectory();
         try {

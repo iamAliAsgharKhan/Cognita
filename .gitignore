@@ -2,3 +2,5 @@
 .env
 .env.*
 my_chroma_db/
+file_hashes.pkl
+__pycache__/

@@ -1,11 +1,10 @@
-# Groq-Powered RAG Webapp for Obsidian Files
+# Cognita
 
-This is a sophisticated, conversational AI web application that allows you to chat with your local Obsidian notes. It uses Retrieval-Augmented Generation (RAG) to provide contextually-aware answers, backed by a persistent vector database and powered by the high-speed Groq LLM API.
+A sophisticated, conversational AI web application that allows you to chat with your local Obsidian notes. It uses Retrieval-Augmented Generation (RAG) to provide contextually-aware answers, backed by a persistent vector database and powered by the high-speed Groq LLM API.
 
 The application features a modern chat interface, dynamic configuration for both the source of your notes and the AI embedding model, and even provides source citations for its answers.
 
-![New Application Screenshot](./images/screenshot1.png) 
-
+![Cognita Logo](./images/logo.png)![New Application Screenshot](./images/screenshot1.png)
 
 ---
 
@@ -44,8 +43,8 @@ The application features a modern chat interface, dynamic configuration for both
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/iamAliAsgharKhan/Groq-Powered-RAG-Webapp-for-Obsidian-Files.git
-    cd Groq-Powered-RAG-Webapp-for-Obsidian-Files
+    git clone https://github.com/iamAliAsgharKhan/Cognita.git
+    cd Cognita
     ```
 
 2.  **Install the required Python libraries:**

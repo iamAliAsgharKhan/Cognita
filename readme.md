@@ -5,7 +5,7 @@ This is a sophisticated, conversational AI web application that allows you to ch
 The application features a modern chat interface, dynamic configuration for both the source of your notes and the AI embedding model, and even provides source citations for its answers.
 
 ![New Application Screenshot](./images/screenshot1.png) 
-*(**Note:** You will need to replace this with a new screenshot showing the settings modal!)*
+
 
 ---
 

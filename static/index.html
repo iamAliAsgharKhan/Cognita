@@ -1,114 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Query Interface</title>
-  <style>
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #1e1e1e;
-      padding: 1em;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
-    }
-    main {
-      max-width: 800px;
-      margin: 2em auto;
-      padding: 1em;
-      background-color: #1e1e1e;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    label {
-      display: block;
-      margin-bottom: 0.5em;
-      font-weight: bold;
-    }
-    textarea, input[type="text"] {
-      width: 100%;
-      padding: 0.8em;
-      margin-bottom: 1em;
-      border: none;
-      border-radius: 4px;
-      background-color: #2e2e2e;
-      color: #ffffff;
-    }
-    button {
-      display: inline-block;
-      padding: 0.8em 1.5em;
-      border: none;
-      border-radius: 4px;
-      background-color: #6200ee;
-      color: #ffffff;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #3700b3;
-    }
-    #response {
-      margin-top: 2em;
-      padding: 1em;
-      background-color: #2e2e2e;
-      border-radius: 4px;
-      font-family: monospace;
-      white-space: pre-wrap;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groq RAG Interface</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
+    <!-- Marked.js for Markdown Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Our Custom JS (defer ensures it runs after the HTML is parsed) -->
+    <script src="static/js/script.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>RAG Webapp Query Interface</h1>
-  </header>
-  <main>
-    <form id="queryForm">
-      <label for="query">Enter your query:</label>
-      <input type="text" id="query" name="query" required placeholder="Type your question here...">
-      <label for="maxTokens">Max Tokens:</label>
-      <input type="number" id="maxTokens" name="maxTokens" value="6000" min="100" step="100">
-      <button type="submit">Submit</button>
-    </form>
-    <div id="response" style="display: none;"></div>
-  </main>
-  <script>
-    document.getElementById('queryForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const queryInput = document.getElementById('query').value;
-      const maxTokensInput = document.getElementById('maxTokens').value;
-      const responseDiv = document.getElementById('response');
-      
-      responseDiv.style.display = 'none';
-      responseDiv.innerText = 'Processing...';
+    <div class="app-container">
+        <header class="app-header">
+            <h1>RAG Webapp Query Interface</h1>
+            <button id="openSettingsBtn" class="settings-toggle-btn" title="Open Settings">
+                <i class="fa-solid fa-cog"></i>
+            </button>
+        </header>
 
-      try {
-        const response = await fetch('http://127.0.0.1:8000/query', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query: queryInput, max_tokens: parseInt(maxTokensInput) }),
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch response from server');
-        }
-        const result = await response.json();
-        responseDiv.innerText = `Query: ${result.query}\n\nResponse:\n${result.response}`;
-      } catch (error) {
-        responseDiv.innerText = `Error: ${error.message}`;
-      }
+        <main id="chat-window" class="chat-window">
+            <!-- Chat messages will be dynamically inserted here -->
+        </main>
 
-      responseDiv.style.display = 'block';
-    });
-  </script>
+        <footer class="chat-input-area">
+            <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                <span></span><span></span><span></span>
+            </div>
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="query" name="query" required placeholder="Ask a question about your notes...">
+                <button type="submit" id="submit-button">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </footer>
+    </div>
+
+    <!-- NEW: Settings Modal -->
+    <div id="settings-modal-backdrop" class="modal-backdrop" style="display: none;">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>Settings</h2>
+                <button id="closeSettingsBtn" class="close-btn" title="Close Settings">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="directoryPath">Obsidian Directory:</label>
+                    <div class="input-with-button">
+                        <input type="text" id="directoryPath" name="directoryPath" placeholder="Copy & paste the full path to your notes here...">
+                        <button id="browseDirectoryBtn" title="Help"><i class="fa-solid fa-folder-open"></i></button>
+                        <button id="saveDirectoryBtn" title="Save Directory"><i class="fa-solid fa-save"></i></button>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label for="modelName">Embedding Model:</label>
+                    <div class="input-with-button">
+                        <select id="modelName" name="modelName" required></select>
+                        <button id="reindexBtn" title="Re-index with Selected Model"><i class="fa-solid fa-sync-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

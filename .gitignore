@@ -1,3 +1,4 @@
 # Environment files
 .env
 .env.*
+my_chroma_db/

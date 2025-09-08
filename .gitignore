@@ -4,3 +4,5 @@
 my_chroma_db/
 file_hashes.pkl
 __pycache__/
+
+features_to_add.md
